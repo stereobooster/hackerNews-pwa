@@ -85,9 +85,6 @@ ol {
   text-decoration: none;
 }
 
-.content {
-}
-
 .content li {
   display: flex;
   flex-wrap: wrap;

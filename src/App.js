@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import { getData } from "./actions/comment";
 import Container from "./Container";
 
+const snap = navigator.userAgent === "ReactSnap";
+
 class App extends Container {
   componentWillMount() {
     const page = this.props.match.params.page;
@@ -18,6 +20,7 @@ class App extends Container {
   }
 
   render() {
+    if (snap) return <div />;
     const { news } = this.props;
     return (
       <div>

@@ -39,7 +39,9 @@ const changeChannel = event => {
   );
 };
 
+const snap = navigator.userAgent === "ReactSnap";
 const initChannel = () => {
+  if (snap) return;
   const path = window.location.pathname.match(/\/([a-z]*)\/([0-9]*)/, "g");
   let channel = "news";
   if (path) {
