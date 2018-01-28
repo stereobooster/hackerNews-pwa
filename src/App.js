@@ -8,24 +8,24 @@ const snap = navigator.userAgent === "ReactSnap";
 class App extends Container {
   componentWillMount() {
     const page = this.props.match.params.page;
-    this.props.dispatch(getData("news", page));
+    this.props.dispatch(getData("top", page));
   }
 
   componentWillReceiveProps(nextProps, nextState, context) {
     const newPage = nextProps.match.params.page;
     const page = this.props.match.params.page;
     if (newPage !== page) {
-      this.props.dispatch(getData("news", newPage));
+      this.props.dispatch(getData("top", newPage));
     }
   }
 
   render() {
     if (snap) return <div />;
-    const { news } = this.props;
+    const { top } = this.props;
     return (
       <div>
         {this.renderPage()}
-        {this.renderList(news)}
+        {this.renderList(top)}
       </div>
     );
   }

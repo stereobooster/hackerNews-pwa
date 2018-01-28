@@ -1,25 +1,24 @@
-import {
-  NEWS_LIST,
-  SHOW_LIST,
-  ASK_LIST,
-  NEWEST_LIST,
-  JOBS_LIST
-} from "../const";
+import { TOP_LIST, NEW_LIST, SHOW_LIST, ASK_LIST, JOB_LIST } from "../const";
 
 const initState = {
+  top: [],
   news: [],
   show: [],
   ask: [],
-  newest: [],
-  jobs: []
+  job: []
 };
 
 export default (state = initState, action) => {
   switch (action.type) {
-    case NEWS_LIST:
+    case TOP_LIST:
       return {
         ...state,
-        news: action.data
+        top: action.data
+      };
+    case NEW_LIST:
+      return {
+        ...state,
+        newest: action.data
       };
     case SHOW_LIST:
       return {
@@ -31,15 +30,10 @@ export default (state = initState, action) => {
         ...state,
         ask: action.data
       };
-    case NEWEST_LIST:
+    case JOB_LIST:
       return {
         ...state,
-        newest: action.data
-      };
-    case JOBS_LIST:
-      return {
-        ...state,
-        jobs: action.data
+        job: action.data
       };
     default:
       return state;

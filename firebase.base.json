@@ -3,14 +3,37 @@
     "public": "build",
     "rewrites": [
       {
-        "source": "**",
+        "source": "/api/**",
+        "function": "app"
+      },
+      {
+        "source": "/",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/top/**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/new/**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/show/**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/ask/**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/job/**",
+        "destination": "/index.html"
+      },
+      {
+        "source": "/item/**",
         "destination": "/index.html"
       }
-    ],
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
     ],
     "headers": [
       {
@@ -36,7 +59,7 @@
         "headers": [
           {
             "key": "Link",
-            "value": "<https://node-hnapi.herokuapp.com>;rel=preconnect;crossorigin"
+            "value": "</>;rel=preconnect;crossorigin"
           }
         ]
       }

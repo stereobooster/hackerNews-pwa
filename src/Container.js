@@ -21,10 +21,10 @@ export default class Container extends Component {
 
   renderItem(data) {
     if (data && data.length > 0) {
-      return data.map((ele, index) => (
+      return data.map((element, index) => (
         <Item
           index={index}
-          data={ele}
+          data={element}
           key={index}
           page={this.props.match.params.page}
         />

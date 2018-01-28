@@ -6,14 +6,14 @@ import Container from "./Container";
 class Newest extends Container {
   componentWillMount() {
     const page = this.props.match.params.page;
-    this.props.dispatch(getData("newest", page));
+    this.props.dispatch(getData("new", page));
   }
 
   componentWillReceiveProps(nextProps) {
     const newPage = nextProps.match.params.page;
     const page = this.props.match.params.page;
     if (newPage !== page) {
-      this.props.dispatch(getData("newest", newPage));
+      this.props.dispatch(getData("new", newPage));
     }
   }
 
@@ -21,7 +21,7 @@ class Newest extends Container {
     const { newest } = this.props;
     return (
       <div>
-        {this.renderPage("newest")}
+        {this.renderPage("new")}
         {this.renderList(newest)}
       </div>
     );

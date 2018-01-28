@@ -6,9 +6,13 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import reducer from "./reducers";
 
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Link,
+  Redirect
+} from "react-router-dom";
 
-import Default from "./Default";
 import App from "./App";
 import Newest from "./Newest";
 import Show from "./Show";
@@ -24,7 +28,7 @@ const middleware = [thunk];
 
 const store = createStore(reducer, applyMiddleware(...middleware));
 
-const defaultChannelList = ["news", "newest", "show", "ask", "jobs"];
+const defaultChannelList = ["top", "new", "show", "ask", "job"];
 
 const changeChannel = event => {
   const channelList = document.querySelectorAll(".channel > a");
@@ -64,12 +68,12 @@ ReactDOM.render(
           <div className="logo">Y</div>
           <ul>
             <li className="channel">
-              <Link to="/1" onClick={event => changeChannel(event)}>
-                NEWS
+              <Link to="/top/1" onClick={event => changeChannel(event)}>
+                TOP
               </Link>
             </li>
             <li className="channel">
-              <Link to="/newest/1" onClick={event => changeChannel(event)}>
+              <Link to="/new/1" onClick={event => changeChannel(event)}>
                 NEW
               </Link>
             </li>
@@ -84,18 +88,18 @@ ReactDOM.render(
               </Link>
             </li>
             <li className="channel">
-              <Link to="/jobs/1" onClick={event => changeChannel(event)}>
+              <Link to="/job/1" onClick={event => changeChannel(event)}>
                 JOBS
               </Link>
             </li>
           </ul>
         </div>
-        <Route exact path="/" component={Default} />
-        <Route exact path="/:page" component={App} />
+        <Route exact path="/" component={() => <Redirect to="/top/1" />} />
+        <Route exact path="/top/:page" component={App} />
+        <Route exact path="/new/:page" component={Newest} />
         <Route exact path="/show/:page" component={Show} />
         <Route exact path="/ask/:page" component={Ask} />
-        <Route exact path="/newest/:page" component={Newest} />
-        <Route exact path="/jobs/:page" component={Jobs} />
+        <Route exact path="/job/:page" component={Jobs} />
         <Route exact path="/item/:id" component={Story} />
       </div>
     </Router>

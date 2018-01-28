@@ -1,5 +1,8 @@
+const snap = navigator.userAgent === "ReactSnap";
+
 export const getData = (type, page) => dispatch => {
-  fetch(`https://node-hnapi.herokuapp.com/${type}?page=${page}`)
+  if (snap) return;
+  fetch(`/api/${type}?page=${page}`)
     .then(res => res.json())
     .then(data => {
       dispatch(receiveData(`${type.toUpperCase()}_LIST`, data));
@@ -7,7 +10,8 @@ export const getData = (type, page) => dispatch => {
 };
 
 export const getItem = id => dispatch => {
-  fetch(`https://node-hnapi.herokuapp.com/item/${id}`)
+  if (snap) return;
+  fetch(`/api/item/${id}`)
     .then(res => res.json())
     .then(data => {
       dispatch(receiveData("STORY", data));
