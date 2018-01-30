@@ -21,14 +21,16 @@ api.onServer = true;
 // cache the latest story ids
 // api.cachedIds = {};
 
-const app = express()
-app.get('/api/item/:id', (request, response) => {
+const app = express();
+app.get("/api/item/:id", (request, response) => {
   api
     .child(`item/${request.params.id}`)
     .limitToFirst(1)
     .once("value")
     .then(s => {
-      response.send(JSON.stringify(s.val()))
+      response.setHeader("Cache-Control", "public, max-age=900");
+      response.set("Content-Type", "application/json");
+      response.send(JSON.stringify(s.val()));
     });
 });
 
@@ -46,7 +48,21 @@ app.get('/api/item/:id', (request, response) => {
         );
         Promise.all(resPromises)
           .then(res => {
-            response.send(JSON.stringify(res));
+            response.setHeader("Cache-Control", "public, max-age=900");
+            response.set("Content-Type", "application/json");
+            // response.send(res);
+            response.send(
+              res.map(x => ({
+                id: x.id,
+                url: x.url,
+                title: x.title,
+                points: x.score,
+                user: x.by,
+                time_ago: x.time,
+                type: x.type,
+                comments_count: x.descendants
+              }))
+            );
           })
           .catch(err => {
             response.status(500).send(err);
@@ -55,6 +71,4 @@ app.get('/api/item/:id', (request, response) => {
   });
 });
 
-
 exports.app = functions.https.onRequest(app);
-
